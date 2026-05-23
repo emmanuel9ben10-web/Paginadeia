@@ -6,29 +6,19 @@
     <title>Plataforma IA - Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        @keyframes bgShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-        @keyframes float{0%,100%{transform:translateY(0) translateX(0)}25%{transform:translateY(-20px) translateX(10px)}50%{transform:translateY(-10px) translateX(-10px)}75%{transform:translateY(-25px) translateX(15px)}}
-        @keyframes pulse{0%,100%{opacity:.4}50%{opacity:.8}}
         @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-        @keyframes glow{0%,100%{box-shadow:0 0 20px rgba(124,58,237,.15)}50%{box-shadow:0 0 40px rgba(124,58,237,.3)}}
-        @keyframes orbit{from{transform:rotate(0deg) translateX(60px) rotate(0deg)}to{transform:rotate(360deg) translateX(60px) rotate(-360deg)}}
-        @keyframes orbit2{from{transform:rotate(0deg) translateX(90px) rotate(0deg)}to{transform:rotate(-360deg) translateX(90px) rotate(360deg)}}
+        @keyframes zoomIn{from{transform:scale(1.1)}to{transform:scale(1)}}
+        @keyframes crossfade{from{opacity:0}to{opacity:1}}
+        @keyframes gradientOverlay{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
         *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(-45deg,#0a0a0f,#0f0520,#0a0f1a,#050510);background-size:400% 400%;animation:bgShift 12s ease infinite;overflow:hidden;position:relative}
-        .bg-orb{position:fixed;border-radius:50%;pointer-events:none;filter:blur(80px);opacity:.3;animation:pulse 4s infinite}
-        .bg-orb:nth-child(1){width:400px;height:400px;background:#7c3aed;top:-10%;left:-5%;animation-delay:0s}
-        .bg-orb:nth-child(2){width:300px;height:300px;background:#4f46e5;bottom:-5%;right:-5%;animation-delay:1s}
-        .bg-orb:nth-child(3){width:250px;height:250px;background:#2563eb;top:50%;left:60%;animation-delay:2s}
-        .bg-orb:nth-child(4){width:200px;height:200px;background:#9333ea;top:20%;right:20%;animation-delay:.5s}
-        .particle{position:fixed;width:3px;height:3px;background:rgba(167,139,250,.2);border-radius:50%;pointer-events:none}
-        .particle:nth-child(5){top:15%;left:10%;animation:float 7s infinite}
-        .particle:nth-child(6){top:75%;left:85%;animation:float 9s infinite 1s;width:2px;height:2px}
-        .particle:nth-child(7){top:40%;left:70%;animation:float 8s infinite 2s;width:4px;height:4px}
-        .particle:nth-child(8){top:85%;left:20%;animation:float 6s infinite .5s}
-        .particle:nth-child(9){top:25%;left:50%;animation:float 10s infinite 3s;width:2px;height:2px}
-        .particle:nth-child(10){top:60%;left:30%;animation:float 7s infinite 1.5s}
-        .card{background:linear-gradient(145deg,rgba(22,22,42,.85),rgba(30,30,56,.85));border:1px solid rgba(61,48,96,.5);border-radius:20px;backdrop-filter:blur(20px);padding:2.2rem;width:100%;max-width:400px;animation:fadeUp .8s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden}
-        .card::before{content:'';position:absolute;top:0;left:-100%;width:200%;height:2px;background:linear-gradient(90deg,transparent,#7c3aed,#4f46e5,transparent);animation:orbit 4s linear infinite}
+        body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;background:#080808}
+        .bg-slideshow{position:fixed;inset:0;z-index:0}
+        .bg-slideshow img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.5s ease-in-out;animation:zoomIn 6s ease-out}
+        .bg-slideshow img.active{opacity:1}
+        .bg-overlay{position:fixed;inset:0;z-index:1;background:linear-gradient(135deg,rgba(8,8,12,.85) 0%,rgba(15,5,32,.7) 50%,rgba(8,8,12,.85) 100%);background-size:200% 200%;animation:gradientOverlay 8s ease infinite}
+        .bg-vignette{position:fixed;inset:0;z-index:1;box-shadow:inset 0 0 150px rgba(0,0,0,.6)}
+        .card{background:linear-gradient(145deg,rgba(22,22,42,.88),rgba(30,30,56,.88));border:1px solid rgba(61,48,96,.5);border-radius:20px;backdrop-filter:blur(24px);padding:2.2rem;width:100%;max-width:400px;animation:fadeUp .8s cubic-bezier(.4,0,.2,1);position:relative;z-index:2;overflow:hidden}
+        .card::before{content:'';position:absolute;top:0;left:-100%;width:200%;height:2px;background:linear-gradient(90deg,transparent,rgba(124,58,237,.6),rgba(79,70,229,.6),transparent);animation:gradientOverlay 4s linear infinite}
         .logo-wrap{text-align:center;margin-bottom:1.5rem}
         .logo-icon{font-size:48px;display:block;margin-bottom:.3rem}
         .logo-wrap h1{font-size:22px;font-weight:700;background:linear-gradient(135deg,#e2d9ff,#a78bfa,#7c3aed);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-.5px}
@@ -48,12 +38,16 @@
         .input-group-custom label{display:flex;align-items:center;gap:4px}
         .features-row{display:flex;justify-content:center;gap:16px;margin-bottom:1.2rem;font-size:10px;color:rgba(255,255,255,.2)}
         .features-row span{display:flex;align-items:center;gap:3px}
+        .photo-credit{position:fixed;bottom:12px;right:16px;z-index:3;font-size:10px;color:rgba(255,255,255,.15)}
+        .photo-credit a{color:rgba(255,255,255,.15);text-decoration:none}
+        .photo-credit a:hover{color:rgba(255,255,255,.3)}
         @media(max-width:480px){.card{padding:1.5rem;margin:1rem}.logo-icon{font-size:36px}}
     </style>
 </head>
 <body>
-    <div class="bg-orb"></div><div class="bg-orb"></div><div class="bg-orb"></div><div class="bg-orb"></div>
-    <div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="bg-slideshow" id="bgSlideshow"></div>
+    <div class="bg-overlay"></div>
+    <div class="bg-vignette"></div>
 
     <div class="card">
         <div class="logo-wrap">
@@ -94,5 +88,37 @@
 
         <a href="registro.jsp" class="btn-outline-morado">Crear cuenta nueva</a>
     </div>
+
+    <div class="photo-credit">Fotos: <a href="https://unsplash.com" target="_blank">Unsplash</a> via picsum.photos</div>
+
+<script>
+(function(){
+    const seeds = ['ai','tech','future','digital','cyber','neon','code','data','brain','network','robot','abstract','light','space','nature','city','stars','planet','ocean','mountain','forest','galaxy','crystal','glass','wave','dawn','aurora','tower','bridge','cloud'];
+    const container = document.getElementById('bgSlideshow');
+    let current = 0;
+    function loadBg(idx){
+        const img = document.createElement('img');
+        const seed = seeds[idx % seeds.length] + current;
+        img.src = 'https://picsum.photos/seed/' + seed + '/1920/1080';
+        img.alt = '';
+        if(idx === 0) img.className = 'active';
+        container.appendChild(img);
+        if(idx > 0){
+            setTimeout(() => {
+                document.querySelectorAll('.bg-slideshow img').forEach(i => i.classList.remove('active'));
+                img.classList.add('active');
+                if(container.children.length > 3){
+                    container.removeChild(container.children[0]);
+                }
+            }, 100);
+        }
+    }
+    for(let i=0; i<3; i++) loadBg(i);
+    setInterval(() => {
+        current++;
+        loadBg(current);
+    }, 7000);
+})();
+</script>
 </body>
 </html>
