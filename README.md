@@ -1,4 +1,7 @@
 <h1 align="center">Plataforma WEB Java para Aprendizaje de IA Generativa</h1>
+<p align="center">
+Proyecto Final — Ingeniería de Software
+</p>
 Descripción del Proyecto
 Este proyecto es una plataforma web desarrollada en Java enfocada en la enseñanza y divulgación de la Inteligencia Artificial Generativa. La aplicación tiene como finalidad brindar información clara, sencilla e interactiva para que cualquier usuario pueda conocer qué es la IA, cómo funciona y cuáles son sus beneficios en la actualidad sin necesidad de conocimientos previos.🎓
 
