@@ -84,9 +84,6 @@
         .complete-banner p{font-size:13px;color:rgba(255,255,255,.5);margin-bottom:1rem}
         .btn-quiz-go{display:inline-block;padding:10px 28px;border-radius:20px;background:linear-gradient(135deg,#7c3aed,#4f46e5);color:#fff;text-decoration:none;font-size:13px;font-weight:500;transition:all .3s;animation:glow 2s infinite}
         .btn-quiz-go:hover{transform:scale(1.05);color:#fff}
-        .auto-redirect-countdown{font-size:11px;color:rgba(255,255,255,.35);margin-top:.8rem}
-        .auto-redirect-bar{height:2px;background:rgba(255,255,255,.08);border-radius:4px;margin-top:.6rem;overflow:hidden}
-        .auto-redirect-fill{height:100%;background:linear-gradient(90deg,#7c3aed,#4f46e5);width:0;border-radius:4px;transition:width 1s linear}
         .key-concept{display:inline-block;padding:2px 8px;background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.15);border-radius:6px;font-size:11px;color:#a78bfa;margin:2px}
         @media(max-width:480px){.tool-grid{grid-template-columns:1fr}.navbar-custom{padding:.6rem 1rem}.btn-apple{font-size:10px;padding:3px 10px}}
     </style>
@@ -127,8 +124,6 @@
         <h3 style="color:#c4b5fd">¡Felicidades, completaste todos los módulos!</h3>
         <p>Has dominado los fundamentos de la IA Generativa. Ahora es momento de poner a prueba tu conocimiento.</p>
         <a href="quiz.jsp" class="btn-quiz-go">Ir al Quiz →</a>
-        <div class="auto-redirect-countdown">Redirigiendo al quiz en <span id="countdownNum">8</span> segundos...</div>
-        <div class="auto-redirect-bar"><div class="auto-redirect-fill" id="countdownBar"></div></div>
     </div>
 
     <!-- MÓDULO 1 -->
@@ -283,7 +278,6 @@
 <script>
 let doneCount = parseInt(localStorage.getItem('doneCount') || '0');
 const total = 6;
-let redirectTimer = null;
 
 function updateProgress(){
     document.getElementById('modCount').textContent = doneCount;
@@ -308,12 +302,10 @@ function updateProgress(){
         banner.classList.add('show');
         if(navQuiz) navQuiz.className = 'btn-apple btn-apple-accent';
         if(quizLabel) quizLabel.textContent = 'Quiz';
-        startRedirectCountdown();
     } else {
         banner.classList.remove('show');
         if(navQuiz) navQuiz.className = 'btn-apple';
         if(quizLabel) quizLabel.textContent = '🔒 Quiz';
-        clearInterval(redirectTimer);
     }
     localStorage.setItem('doneCount', doneCount.toString());
 }
@@ -340,23 +332,6 @@ function markDone(cardId, sId, bId, num){
     updateProgress();
 }
 
-function startRedirectCountdown(){
-    let secs = 8;
-    const numEl = document.getElementById('countdownNum');
-    const barEl = document.getElementById('countdownBar');
-    barEl.style.width = '100%';
-    clearInterval(redirectTimer);
-    redirectTimer = setInterval(() => {
-        secs--;
-        numEl.textContent = secs;
-        barEl.style.width = (secs/8*100) + '%';
-        if(secs <= 0){
-            clearInterval(redirectTimer);
-            window.location.href = 'quiz.jsp';
-        }
-    }, 1000);
-}
-
 function resetProgress(){
     doneCount = 0;
     localStorage.setItem('doneCount', '0');
@@ -369,7 +344,6 @@ function resetProgress(){
         if(card) card.classList.remove('done-module');
     }
     updateProgress();
-    clearInterval(redirectTimer);
 }
 
 function saveProgressToDB(){
