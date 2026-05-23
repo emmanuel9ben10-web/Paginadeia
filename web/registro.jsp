@@ -54,8 +54,8 @@
         .bg-slideshow{position:fixed;inset:0;z-index:0}
         .bg-slideshow img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.5s ease-in-out;animation:zoomIn 6s ease-out}
         .bg-slideshow img.active{opacity:1}
-        .bg-overlay{position:fixed;inset:0;z-index:1;background:linear-gradient(135deg,rgba(8,8,12,.85) 0%,rgba(15,5,32,.7) 50%,rgba(8,8,12,.85) 100%);background-size:200% 200%;animation:gradientOverlay 8s ease infinite}
-        .bg-vignette{position:fixed;inset:0;z-index:1;box-shadow:inset 0 0 150px rgba(0,0,0,.6)}
+        .bg-overlay{position:fixed;inset:0;z-index:1;background:linear-gradient(135deg,rgba(8,8,12,.5) 0%,rgba(79,70,229,.25) 50%,rgba(8,8,12,.5) 100%);background-size:200% 200%;animation:gradientOverlay 8s ease infinite}
+        .bg-vignette{position:fixed;inset:0;z-index:1;box-shadow:inset 0 0 100px rgba(0,0,0,.4)}
         .card{background:linear-gradient(145deg,rgba(22,22,42,.88),rgba(30,30,56,.88));border:1px solid rgba(61,48,96,.5);border-radius:20px;backdrop-filter:blur(24px);padding:2.2rem;width:100%;max-width:440px;animation:fadeUp .8s cubic-bezier(.4,0,.2,1);position:relative;z-index:2;overflow:hidden}
         .card::before{content:'';position:absolute;top:0;left:-100%;width:200%;height:2px;background:linear-gradient(90deg,transparent,rgba(124,58,237,.6),rgba(79,70,229,.6),transparent);animation:gradientOverlay 4s linear infinite}
         .form-control{background:rgba(14,14,32,.7);border:1px solid rgba(61,48,96,.5);border-radius:12px;color:#e2d9ff;padding:.75rem 1rem;font-size:14px;transition:all .3s}

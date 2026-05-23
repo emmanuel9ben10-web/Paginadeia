@@ -30,8 +30,8 @@
         .bg-slideshow img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.5s ease-in-out;animation:zoomIn 6s ease-out}
         .bg-slideshow img.active{opacity:1}
         @keyframes zoomIn{from{transform:scale(1.05)}to{transform:scale(1)}}
-        .bg-overlay{position:fixed;inset:0;z-index:0;pointer-events:none;background:linear-gradient(135deg,rgba(8,8,12,.92) 0%,rgba(15,5,32,.8) 50%,rgba(8,8,12,.92) 100%);background-size:200% 200%;animation:gradientOverlay 8s ease infinite}
-        .bg-vignette{position:fixed;inset:0;z-index:0;pointer-events:none;box-shadow:inset 0 0 150px rgba(0,0,0,.6)}
+        .bg-overlay{position:fixed;inset:0;z-index:0;pointer-events:none;background:linear-gradient(135deg,rgba(8,8,12,.55) 0%,rgba(79,70,229,.25) 50%,rgba(8,8,12,.55) 100%);background-size:200% 200%;animation:gradientOverlay 8s ease infinite}
+        .bg-vignette{position:fixed;inset:0;z-index:0;pointer-events:none;box-shadow:inset 0 0 100px rgba(0,0,0,.4)}
         .navbar-custom{display:flex;align-items:center;justify-content:space-between;padding:.8rem 2rem;border-bottom:1px solid rgba(255,255,255,.07);background:rgba(8,8,8,.85);backdrop-filter:blur(12px);position:sticky;top:0;z-index:100}
         .avatar{width:28px;height:28px;border-radius:50%;background:#1e1e1e;border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500}
         .btn-apple{font-size:11px;padding:4px 14px;border-radius:20px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.6);text-decoration:none;transition:all .2s}
