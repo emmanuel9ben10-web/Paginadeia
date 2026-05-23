@@ -48,8 +48,21 @@
     <style>
         @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
         @keyframes scaleIn{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
-        body{background:#080808;font-family:-apple-system,BlinkMacSystemFont,sans-serif;min-height:100vh;color:#fff}
-        .navbar-custom{display:flex;align-items:center;justify-content:space-between;padding:.8rem 2rem;border-bottom:1px solid rgba(255,255,255,.07);background:rgba(8,8,8,.97);position:sticky;top:0;z-index:100}
+        @keyframes bgShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+        @keyframes pulse{0%,100%{opacity:.3}50%{opacity:.6}}
+        body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;min-height:100vh;color:#fff;background:linear-gradient(-45deg,#080808,#0f0520,#0a0f1a,#080808);background-size:400% 400%;animation:bgShift 15s ease infinite}
+        .bg-orb{position:fixed;border-radius:50%;pointer-events:none;filter:blur(80px);opacity:.2;animation:pulse 4s infinite;z-index:-1}
+        .bg-orb:nth-child(1){width:350px;height:350px;background:#7c3aed;top:-5%;left:10%;animation-delay:0s}
+        .bg-orb:nth-child(2){width:250px;height:250px;background:#4f46e5;bottom:10%;right:5%;animation-delay:1s}
+        .bg-orb:nth-child(3){width:200px;height:200px;background:#2563eb;top:40%;left:70%;animation-delay:2s}
+        .particle{position:fixed;width:2px;height:2px;background:rgba(167,139,250,.15);border-radius:50%;pointer-events:none;animation:float 6s infinite;z-index:-1}
+        .particle:nth-child(4){top:20%;left:5%;animation-delay:0s}
+        .particle:nth-child(5){top:70%;left:90%;animation-delay:1s;width:3px;height:3px}
+        .particle:nth-child(6){top:30%;left:50%;animation-delay:2s}
+        .particle:nth-child(7){top:85%;left:30%;animation-delay:.5s}
+        .particle:nth-child(8){top:50%;left:75%;animation-delay:3s;width:3px;height:3px}
+        .navbar-custom{display:flex;align-items:center;justify-content:space-between;padding:.8rem 2rem;border-bottom:1px solid rgba(255,255,255,.07);background:rgba(8,8,8,.85);backdrop-filter:blur(12px);position:sticky;top:0;z-index:100}
         .avatar{width:28px;height:28px;border-radius:50%;background:#1e1e1e;border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500}
         .btn-apple{font-size:11px;padding:4px 14px;border-radius:20px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.6);text-decoration:none}
         .btn-apple-w{background:rgba(255,255,255,.93)!important;color:#000!important;font-weight:500}
@@ -81,6 +94,8 @@
     </style>
 </head>
 <body>
+    <div class="bg-orb"></div><div class="bg-orb"></div><div class="bg-orb"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div>
 <nav class="navbar-custom">
     <div class="d-flex align-items-center gap-2">
         <span style="font-size:8px">●</span>
