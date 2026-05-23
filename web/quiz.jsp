@@ -47,6 +47,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes scaleIn{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
         body{background:#080808;font-family:-apple-system,BlinkMacSystemFont,sans-serif;min-height:100vh;color:#fff}
         .navbar-custom{display:flex;align-items:center;justify-content:space-between;padding:.8rem 2rem;border-bottom:1px solid rgba(255,255,255,.07);background:rgba(8,8,8,.97);position:sticky;top:0;z-index:100}
         .avatar{width:28px;height:28px;border-radius:50%;background:#1e1e1e;border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500}
@@ -66,6 +67,17 @@
         .btn-submit:hover{background:#fff;transform:scale(1.01)}
         .progress-quiz{background:rgba(255,255,255,.06);border-radius:20px;height:3px;margin-bottom:2rem;overflow:hidden}
         .progress-fill{height:100%;background:rgba(255,255,255,.5);border-radius:20px;width:0;transition:width .4s}
+        .lock-overlay{display:flex;align-items:center;justify-content:center;min-height:70vh;animation:fadeUp .6s ease}
+        .lock-card{background:#0f0f0f;border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:2.5rem;text-align:center;max-width:420px;width:100%;animation:scaleIn .5s cubic-bezier(.4,0,.2,1)}
+        .lock-icon{font-size:56px;margin-bottom:.5rem}
+        .lock-card h2{font-size:20px;font-weight:600;margin-bottom:.5rem}
+        .lock-card p{font-size:13px;color:rgba(255,255,255,.4);line-height:1.6;margin-bottom:1.5rem}
+        .progress-ring{display:flex;justify-content:center;gap:6px;margin-bottom:1.5rem}
+        .progress-ring span{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:11px;color:rgba(255,255,255,.25)}
+        .progress-ring span.done{background:rgba(124,58,237,.2);border-color:#7c3aed;color:#a78bfa}
+        .btn-lock-go{display:inline-block;padding:10px 28px;border-radius:20px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.6);text-decoration:none;font-size:13px;transition:all .2s}
+        .btn-lock-go:hover{background:rgba(255,255,255,.13);color:#fff}
+        .quiz-content{display:none}
     </style>
 </head>
 <body>
@@ -82,6 +94,18 @@
     </div>
 </nav>
 
+<div class="lock-overlay" id="lockOverlay">
+    <div class="lock-card">
+        <div class="lock-icon">🔒</div>
+        <h2>Quiz bloqueado</h2>
+        <p>Completa los 6 módulos de contenido para desbloquear el quiz. Debes leer y marcar como completado cada módulo.</p>
+        <div class="progress-ring" id="progressRing"></div>
+        <p style="font-size:12px;color:rgba(255,255,255,.3)" id="lockMsg">Progreso: 0/6 módulos</p>
+        <a href="contenido.jsp" class="btn-lock-go">Ir al contenido →</a>
+    </div>
+</div>
+
+<div class="quiz-content" id="quizContent">
 <div class="container" style="max-width:660px;padding:2rem 1rem">
     <h1 style="font-size:24px;font-weight:600;letter-spacing:-.4px;margin-bottom:.4rem">Pon a prueba<br>lo que aprendiste.</h1>
     <p style="font-size:13px;color:rgba(255,255,255,.38);margin-bottom:1.5rem">5 preguntas sobre IA Generativa · Selecciona la respuesta correcta</p>
@@ -137,6 +161,7 @@
         <button type="submit" class="btn-submit">Enviar respuestas →</button>
     </form>
 </div>
+</div>
 <script>
 function updateProgress(){
     const total=5;
@@ -146,6 +171,25 @@ function updateProgress(){
     }
     document.getElementById('pbar').style.width=(answered/total*100)+'%';
 }
+
+function checkQuizAccess(){
+    const done = parseInt(localStorage.getItem('doneCount') || '0');
+    const total = 6;
+    const ring = document.getElementById('progressRing');
+    ring.innerHTML = '';
+    for(let i=1;i<=total;i++){
+        const s = document.createElement('span');
+        s.textContent = i;
+        if(i <= done) s.className = 'done';
+        ring.appendChild(s);
+    }
+    document.getElementById('lockMsg').textContent = 'Progreso: ' + done + '/' + total + ' módulos';
+    if(done >= total){
+        document.getElementById('lockOverlay').style.display = 'none';
+        document.getElementById('quizContent').style.display = 'block';
+    }
+}
+checkQuizAccess();
 </script>
 </body>
 </html>

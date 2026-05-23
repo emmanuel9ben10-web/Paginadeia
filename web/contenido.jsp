@@ -103,7 +103,7 @@
     <div class="d-flex align-items-center gap-2">
         <div class="avatar"><%= inicial %></div>
         <a href="chat.jsp" class="btn-apple">Chat IA</a>
-        <a href="quiz.jsp" class="btn-apple" id="navQuiz">Quiz</a>
+        <a href="quiz.jsp" class="btn-apple" id="navQuiz"><span id="quizLabel">Quiz</span></a>
         <a href="logout.jsp" class="btn-apple btn-apple-w">Salir</a>
     </div>
 </nav>
@@ -303,13 +303,16 @@ function updateProgress(){
     }
     const banner = document.getElementById('completeBanner');
     const navQuiz = document.getElementById('navQuiz');
+    const quizLabel = document.getElementById('quizLabel');
     if(doneCount >= total){
         banner.classList.add('show');
         if(navQuiz) navQuiz.className = 'btn-apple btn-apple-accent';
+        if(quizLabel) quizLabel.textContent = 'Quiz';
         startRedirectCountdown();
     } else {
         banner.classList.remove('show');
         if(navQuiz) navQuiz.className = 'btn-apple';
+        if(quizLabel) quizLabel.textContent = '🔒 Quiz';
         clearInterval(redirectTimer);
     }
     localStorage.setItem('doneCount', doneCount.toString());
