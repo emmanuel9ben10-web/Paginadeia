@@ -52,8 +52,9 @@
     <div class="score"><%= correctas %><span> / <%= total %></span></div>
     <div class="pct-bar"><div class="pct-fill" id="bar"></div></div>
     <p style="font-size:13px;color:rgba(255,255,255,.4);margin-bottom:2rem"><%= pct %>% de respuestas correctas</p>
-    <a href="quiz.jsp" class="btn-r btn-w">Intentar de nuevo</a>
+        <a href="quiz.jsp" class="btn-r btn-w">Intentar de nuevo</a>
     <a href="contenido.jsp" class="btn-r btn-o">Repasar contenido</a>
+    <a href="chat.jsp" class="btn-r btn-o" style="margin-top:8px;display:inline-block">Chat IA</a>
 </div>
 <script>
     window.onload = function(){

@@ -77,6 +77,7 @@
     <div class="d-flex align-items-center gap-2">
         <div class="avatar"><%= inicial %></div>
         <a href="contenido.jsp" class="btn-apple">Contenido</a>
+        <a href="chat.jsp" class="btn-apple">Chat IA</a>
         <a href="logout.jsp" class="btn-apple btn-apple-w">Salir</a>
     </div>
 </nav>
