@@ -1,0 +1,10 @@
+build/
+dist/
+nbproject/private/
+*.class
+*.jar
+*.war
+*.log
+*.iml
+.idea/
+*.DS_Store
