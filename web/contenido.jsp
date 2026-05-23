@@ -372,20 +372,51 @@ function resetProgress(){
     clearInterval(redirectTimer);
 }
 
-String.prototype.hashCode = function(){let h=0;for(let i=0;i<this.length;i++){h=((h<<5)-h)+this.charCodeAt(i);h|=0}return h};
+function saveProgressToDB(){
+    fetch('guardar_progreso.jsp?modulos=' + doneCount)
+        .then(r => r.json())
+        .catch(() => {});
+}
+
+// Override markDone to also save to DB
+const origMarkDone = markDone;
+markDone = function(cardId, sId, bId, num){
+    if(document.getElementById(bId).disabled) return;
+    origMarkDone(cardId, sId, bId, num);
+    saveProgressToDB();
+};
+
 (function(){
-    const stored = localStorage.getItem('doneCount');
-    if(stored){
-        doneCount = parseInt(stored) || 0;
-        if(doneCount > total) doneCount = total;
-        for(let i=1; i<=doneCount; i++){
-            const s = document.getElementById('s'+i);
-            const b = document.getElementById('b'+i);
-            if(s){ s.textContent='✓ Leído'; s.classList.add('done'); }
-            if(b){ b.textContent='✓ Completado'; b.classList.add('done'); b.disabled=true; }
-        }
-    }
-    updateProgress();
+    fetch('obtener_progreso.jsp')
+        .then(r => r.json())
+        .then(data => {
+            const dbMods = data.modulos || 0;
+            if(dbMods > doneCount){
+                doneCount = dbMods;
+                localStorage.setItem('doneCount', doneCount.toString());
+                for(let i=1; i<=doneCount; i++){
+                    const s = document.getElementById('s'+i);
+                    const b = document.getElementById('b'+i);
+                    if(s){ s.textContent='✓ Leído'; s.classList.add('done'); }
+                    if(b){ b.textContent='✓ Completado'; b.classList.add('done'); b.disabled=true; }
+                }
+            }
+            updateProgress();
+        })
+        .catch(() => {
+            const stored = localStorage.getItem('doneCount');
+            if(stored){
+                doneCount = parseInt(stored) || 0;
+                if(doneCount > total) doneCount = total;
+                for(let i=1; i<=doneCount; i++){
+                    const s = document.getElementById('s'+i);
+                    const b = document.getElementById('b'+i);
+                    if(s){ s.textContent='✓ Leído'; s.classList.add('done'); }
+                    if(b){ b.textContent='✓ Completado'; b.classList.add('done'); b.disabled=true; }
+                }
+            }
+            updateProgress();
+        });
 })();
 </script>
 </body>

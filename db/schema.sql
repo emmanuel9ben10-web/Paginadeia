@@ -9,6 +9,13 @@ CREATE TABLE IF NOT EXISTS usuarios (
     creado TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
 
+CREATE TABLE IF NOT EXISTS progreso_usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT NOT NULL UNIQUE,
+    modulos_completados INT DEFAULT 0,
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
 CREATE TABLE IF NOT EXISTS evaluaciones (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_usuario INT NOT NULL,

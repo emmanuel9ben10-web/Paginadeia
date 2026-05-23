@@ -173,8 +173,20 @@ function updateProgress(){
 }
 
 function checkQuizAccess(){
-    const done = parseInt(localStorage.getItem('doneCount') || '0');
     const total = 6;
+    fetch('obtener_progreso.jsp')
+        .then(r => r.json())
+        .then(data => {
+            const done = data.modulos || 0;
+            localStorage.setItem('doneCount', done.toString());
+            updateLockUI(done, total);
+        })
+        .catch(() => {
+            const done = parseInt(localStorage.getItem('doneCount') || '0');
+            updateLockUI(done, total);
+        });
+}
+function updateLockUI(done, total){
     const ring = document.getElementById('progressRing');
     ring.innerHTML = '';
     for(let i=1;i<=total;i++){
